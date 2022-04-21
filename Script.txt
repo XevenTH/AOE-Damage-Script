@@ -1,0 +1,34 @@
+float FarDamage;
+float CloseDamage;
+
+float CurrentDamage;
+
+//Mendapatkan collider dari sekitar impact area lalu Detroy
+//Bisa digunakan juga pada OnEnterCollider()/2D
+private void GetHit()
+    {
+        Collider[] enemies = Physics.OverlapSphere(transform.position, Impact);
+        foreach(Collider enemy in enemies)
+        {
+            if(enemy.CompareTag("Enemy"))
+            {
+                Destroy(enemy.gameObject);
+                Destroy(gameObject);
+            }
+        }
+    }
+    
+    //Damage Sistem sesuai range
+    private void GetHit()
+    {
+        Collider[] enemies = Physics.OverlapSphere(transform.position, Impact);
+        foreach(Collider enemy in enemies)
+        {
+            float Distance = Vector3.Distance(transform.position - enemy.transform.position);
+            CurrentDamage = FarDamage;
+            if(enemy.CompareTag("Enemy") && Distance < Impact)
+            {
+                CurrentDamage = CloseDamage;
+            }
+        }
+    }
